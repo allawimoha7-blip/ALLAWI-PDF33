@@ -116,7 +116,6 @@ class _PdfViewerScreenState extends ConsumerState<PdfViewerScreen> {
 
   PdfViewerParams _viewerParams(AppStrings s) {
     return PdfViewerParams(
-      enableTextSelection: true,
       pagePaintCallbacks: [_textSearcher.pageTextMatchPaintCallback],
       onViewerReady: (document, controller) async {
         final total = document.pages.length;
@@ -203,28 +202,30 @@ class _PdfViewerScreenState extends ConsumerState<PdfViewerScreen> {
       ReaderVisualMode.normal => Theme.of(context).scaffoldBackgroundColor,
     };
 
+    final PreferredSizeWidget? viewerAppBar = isFullScreen
+        ? null
+        : (_isSearching
+            ? ViewerSearchBar(
+                textSearcher: _textSearcher,
+                onClose: () {
+                  setState(() => _isSearching = false);
+                  _textSearcher.resetTextSearch();
+                },
+              )
+            : ViewerTopBar(
+                file: widget.file,
+                onSearch: () => setState(() => _isSearching = true),
+                onShare: _shareFile,
+                onPrint: _printFile,
+                onThumbnails: () => setState(() => _showThumbnails = !_showThumbnails),
+                onBookmarks: () => showBookmarksSheet(context, ref, widget.file, _currentPage, (page) {
+                  _controller.goToPage(pageNumber: page);
+                }),
+              ));
+
     return Scaffold(
       backgroundColor: bgColor,
-      appBar: isFullScreen
-          ? null
-          : (_isSearching
-              ? ViewerSearchBar(
-                  textSearcher: _textSearcher,
-                  onClose: () {
-                    setState(() => _isSearching = false);
-                    _textSearcher.resetTextSearch();
-                  },
-                )
-              : ViewerTopBar(
-                  file: widget.file,
-                  onSearch: () => setState(() => _isSearching = true),
-                  onShare: _shareFile,
-                  onPrint: _printFile,
-                  onThumbnails: () => setState(() => _showThumbnails = !_showThumbnails),
-                  onBookmarks: () => showBookmarksSheet(context, ref, widget.file, _currentPage, (page) {
-                    _controller.goToPage(pageNumber: page);
-                  }),
-                )),
+      appBar: viewerAppBar,
       body: SafeArea(
         top: isFullScreen,
         child: Stack(
