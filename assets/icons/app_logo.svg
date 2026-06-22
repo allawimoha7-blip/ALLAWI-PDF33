@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- ALLAWI PDF Reader logo mark — vector source. -->
+  <!-- Backdrop -->
+  <rect x="0" y="0" width="512" height="512" rx="112" fill="#2F6FED" fill-opacity="0.14"/>
+
+  <!-- Document body with folded corner -->
+  <path d="
+    M 156 116
+    L 308 116
+    L 356 164
+    L 356 396
+    L 156 396
+    Z"
+    fill="#2F6FED"/>
+
+  <!-- Folded corner accent -->
+  <path d="M 308 116 L 356 164 L 308 164 Z" fill="#F2A33D"/>
+
+  <!-- "A" knockout (drawn in backdrop tone to read as a cut-out) -->
+  <g stroke="#F7F8FB" stroke-width="26" stroke-linecap="round" fill="none">
+    <line x1="256" y1="196" x2="196" y2="356"/>
+    <line x1="256" y1="196" x2="316" y2="356"/>
+    <line x1="222" y1="304" x2="290" y2="304"/>
+  </g>
+</svg>

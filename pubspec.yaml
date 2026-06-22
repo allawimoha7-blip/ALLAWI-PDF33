@@ -1,0 +1,96 @@
+name: allawi_pdf_reader
+description: "ALLAWI PDF Reader — Read PDFs Faster, Smarter, Better."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # --- UI / Design ---
+  cupertino_icons: ^1.0.8
+  lucide_icons_flutter: ^3.0.4
+  google_fonts: ^6.2.1
+  flutter_animate: ^4.5.0
+
+  # --- State management ---
+  # Pinned below 3.0.0: Riverpod 3.x moves StateNotifierProvider/StateProvider
+  # to a separate `legacy.dart` import. This project uses those APIs, so
+  # staying on the 2.x line keeps the existing imports working as-is.
+  # See: https://riverpod.dev/docs/3.0_migration
+  flutter_riverpod: ">=2.5.1 <3.0.0"
+
+  # --- Routing ---
+  go_router: ^14.2.0
+
+  # --- PDF rendering (fully open-source, PDFium-based) ---
+  pdfrx: ^2.2.17
+
+  # --- File handling ---
+  file_picker: ^8.0.6
+  path_provider: ^2.1.4
+  path: ^1.9.0
+  share_plus: ^13.1.0
+  package_info_plus: ^8.0.2
+  permission_handler: ^11.3.1
+
+  # --- Storage / persistence ---
+  shared_preferences: ^2.2.3
+  sqflite: ^2.3.3+1
+  sqflite_common_ffi_web: ^0.4.3+1
+
+  # --- Localization ---
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
+  # --- Utilities ---
+  uuid: ^4.4.2
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_native_splash: ^2.4.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/images/
+
+# Run `dart run flutter_native_splash:create` after adding a real
+# assets/images/splash_logo.png to generate native splash screens.
+# Until that PNG exists, this config is inert and the app falls back to
+# Flutter's default white splash before the in-Dart SplashScreen takes over.
+flutter_native_splash:
+  color: "#0E1116"
+  color_dark: "#0E1116"
+  image: assets/images/splash_logo.png
+  image_dark: assets/images/splash_logo.png
+  android_12:
+    image: assets/images/splash_logo.png
+    icon_background_color: "#0E1116"
+    image_dark: assets/images/splash_logo.png
+    icon_background_color_dark: "#0E1116"
+  web: true
+
+# Run `dart run flutter_launcher_icons` after adding a real
+# assets/images/app_icon.png (1024x1024 recommended) to generate
+# platform app icons. Until that PNG exists, this config is inert.
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "assets/images/app_icon.png"
+    background_color: "#0E1116"
+    theme_color: "#2F6FED"
