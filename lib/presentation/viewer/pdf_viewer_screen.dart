@@ -202,26 +202,29 @@ class _PdfViewerScreenState extends ConsumerState<PdfViewerScreen> {
       ReaderVisualMode.normal => Theme.of(context).scaffoldBackgroundColor,
     };
 
-    final PreferredSizeWidget? viewerAppBar = isFullScreen
-        ? null
-        : (_isSearching
-            ? ViewerSearchBar(
-                textSearcher: _textSearcher,
-                onClose: () {
-                  setState(() => _isSearching = false);
-                  _textSearcher.resetTextSearch();
-                },
-              )
-            : ViewerTopBar(
-                file: widget.file,
-                onSearch: () => setState(() => _isSearching = true),
-                onShare: _shareFile,
-                onPrint: _printFile,
-                onThumbnails: () => setState(() => _showThumbnails = !_showThumbnails),
-                onBookmarks: () => showBookmarksSheet(context, ref, widget.file, _currentPage, (page) {
-                  _controller.goToPage(pageNumber: page);
-                }),
-              ));
+    PreferredSizeWidget? viewerAppBar;
+    if (isFullScreen) {
+      viewerAppBar = null;
+    } else if (_isSearching) {
+      viewerAppBar = ViewerSearchBar(
+        textSearcher: _textSearcher,
+        onClose: () {
+          setState(() => _isSearching = false);
+          _textSearcher.resetTextSearch();
+        },
+      );
+    } else {
+      viewerAppBar = ViewerTopBar(
+        file: widget.file,
+        onSearch: () => setState(() => _isSearching = true),
+        onShare: _shareFile,
+        onPrint: _printFile,
+        onThumbnails: () => setState(() => _showThumbnails = !_showThumbnails),
+        onBookmarks: () => showBookmarksSheet(context, ref, widget.file, _currentPage, (page) {
+          _controller.goToPage(pageNumber: page);
+        }),
+      );
+    }
 
     return Scaffold(
       backgroundColor: bgColor,
